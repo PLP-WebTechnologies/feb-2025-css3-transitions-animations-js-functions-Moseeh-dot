@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My assignment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta lang="en">
+        <style>
+            body {
+                background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');
+                background-size: cover;
+                color: brown;
+                font-family: Arial, sans-serif;
+            }
+            h1 {
+                text-align: center;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+                colour:green;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hello</h1>
+        <button onclick="triggerAction()">Click Me</button>
+  <div id="box"></div>
+
+  <script>
+    // Store a user preference
+    function setPreference(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    // Retrieve a user preference
+    function getPreference(key) {
+      const value = localStorage.getItem(key);
+      return value ? JSON.parse(value) : null;
+    }
+
+    // Function triggered by user action
+    function triggerAction() {
+      const box = document.getElementById('box');
+
+      // Retrieve stored color preference
+      let preferredColor = getPreference('boxColor') || 'lightgreen';
+
+      // Toggle animation class
+      box.classList.toggle('animate');
+
+      // Change color preference dynamically
+      const newColor = box.style.backgroundColor === 'lightblue' ? preferredColor : 'lightblue';
+      box.style.backgroundColor = newColor;
+
+      // Save the current color as the preference
+      setPreference('boxColor', newColor);
+    }
+
+    // Initialize box color from saved preference
+    window.onload = () => {
+      const box = document.getElementById('box');
+      const savedColor = getPreference('boxColor');
+      if (savedColor) {
+        box.style.backgroundColor = savedColor;
+      }
+    };
+  </script>
+        <div>
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="number" id="age" placeholder="Age" required>
+            <button id="addButton">submit</button>
+            <script>
+                const addButton = document.getElementById("addButton");
+                const firstNameInput = document.getElementById("firstName");
+                const lastNameInput = document.getElementById("lastName");
+                const ageInput = document.getElementById("age");
+
+                addButton.onclick = function() {
+                    const firstName = firstNameInput.value;
+                    const lastName = lastNameInput.value;
+                    const age = ageInput.value;
+                
+
+                    if (firstName && lastName && age) {
+                        const table = document.querySelector("table");
+                        const newRow = table.insertRow();
+                        newRow.insertCell(0).innerText = firstName;
+                        newRow.insertCell(1).innerText = lastName;
+                        newRow.insertCell(2).innerText = age;
+
+                        firstNameInput.value = "";
+                        lastNameInput.value = "";
+                        ageInput.value = "";
+                    } else {
+                        alert("Please fill in all fields.");
+                    }
+                };
+            </script>
+            <table>
+                <thead border="1">
+
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        
+    </body>
+</html>
